@@ -36,5 +36,6 @@ jobs:
     - name: Archive Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: my_program
-        path: ./my_program
+        name: my_programs
+        path: ./*.exe
+
