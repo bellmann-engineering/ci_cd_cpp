@@ -22,13 +22,13 @@ jobs:
         curl -L -o mingw.tar.gz https://sourceforge.net/projects/mingw-w64/files/latest/download
         tar -xf mingw.tar.gz -C C:\mingw --strip-components=1
 
-    - name: Add MinGW to PATH
+    - name: Create Environment File
       run: |
-        echo "::add-path::C:\mingw\bin"
-        echo "::add-path::C:\mingw\mingw32\bin"
+        echo "C:\mingw\bin" >> $GITHUB_ENV
+        echo "C:\mingw\mingw32\bin" >> $GITHUB_ENV
 
     - name: Build
-      run: g++ main.cpp -o my_program
+      run: g++ -o my_program main.cpp
 
     - name: Test
       run: ./my_program
