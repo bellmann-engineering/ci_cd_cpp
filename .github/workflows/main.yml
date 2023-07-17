@@ -1,4 +1,4 @@
-name: CI/CD with GCC
+name: CI/CD with MinGW
 
 on:
   push:
@@ -10,21 +10,29 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install GCC
-      run: sudo apt-get install -y g++
+    - name: Install MinGW
+      run: |
+        mkdir C:\mingw
+        curl -L -o mingw.tar.gz https://sourceforge.net/projects/mingw-w64/files/latest/download
+        tar -xf mingw.tar.gz -C C:\mingw --strip-components=1
+
+    - name: Add MinGW to PATH
+      run: |
+        echo "::add-path::C:\mingw\bin"
+        echo "::add-path::C:\mingw\mingw32\bin"
 
     - name: Build
       run: g++ main.cpp -o my_program
 
     - name: Test
       run: ./my_program
-      
+
     - name: Archive Artifact
       uses: actions/upload-artifact@v2
       with:
