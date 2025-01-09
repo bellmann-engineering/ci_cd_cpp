@@ -34,7 +34,7 @@ jobs:
       run: ./my_program
 
     - name: Archive Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: my_programs
         path: ./*.exe
